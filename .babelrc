@@ -1,0 +1,12 @@
+{ 
+  "presets": [
+    "es2015",
+    "stage-0"
+  ], 
+  "plugins": [
+    ["babel-project-relative-import", {
+      "sourceDir": "src/"
+    }]
+  ],
+} 
+
