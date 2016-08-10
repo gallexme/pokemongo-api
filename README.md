@@ -1,5 +1,7 @@
 # pokemongo-api ![](https://img.shields.io/npm/v/pokemongo-api.svg) [![npm](https://img.shields.io/npm/dt/pokemongo-api.svg)]() ![Travis](https://img.shields.io/travis/stoffern/pokemongo-api.svg) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/pokemongo-api/Lobby)
 
+[![Join the chat at https://gitter.im/gallexme/pokemongo-api](https://badges.gitter.im/gallexme/pokemongo-api.svg)](https://gitter.im/gallexme/pokemongo-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Pokemon Go API for nodejs
 
 Query the Pokemon database for what you want..
