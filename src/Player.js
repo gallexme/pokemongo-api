@@ -149,7 +149,7 @@ class Player {
         timestamp: Date.now(),
       }
 
-      let prettyJson = JSON.stringify(cacheObj, null, 2)
+      let prettyJson = JSON.stringify(cacheFile, null, 2)
       try {
         fs.writeFileSync(LOGIN_CACHE_LOCATION, prettyJson)
         this.parent.log.info('[i] Login cache saved to file!')
