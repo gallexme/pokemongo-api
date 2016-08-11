@@ -30,6 +30,10 @@ class PokemonGOAPI {
     this.logging = (props && props.logging) != null
       ? props.logging
       : true // logging defaults to true
+
+    this.loginCache = (props && props.loginCache) != null
+      ? props.loginCache
+      : true // use login cache
     
     this.requestInterval = (props && props.requestInterval) != null
       ? props.requestInterval

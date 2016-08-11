@@ -2,6 +2,7 @@ import GeoCoder from 'geocoder'
 import moment from 'moment'
 import Auth from '~/Auth'
 import geolib from 'geolib'
+import path from 'path'
 
 const LOGIN_CACHE_LOCATION = './.loginCache';
 const MILLIS_PER_MINUTE = 60 * 1000;
@@ -106,55 +107,59 @@ class Player {
   }
 
   async Login(user, pass, forceRefreshLogin) {
-    var loginCacheString = null
-    var loginCache = null
 
-    if (!forceRefreshLogin) {
-      this.parent.log.info('[i] Checking for login cache.')
-      try {
-        loginCacheString = fs.readFileSync(LOGIN_CACHE_LOCATION, 'utf8')
+    if (this.parent.loginCache){
+
+      let cacheFile = null,
+          loginCache = null,
+          file = {}
+
+      if (!forceRefreshLogin) {
+        this.parent.log.info('[i] Checking for login cache.')
         try {
-          loginCache = JSON.parse(loginCacheString)[user]
+          cacheFile = require('fs').readFileSync(LOGIN_CACHE_LOCATION, 'utf8')
+          try {
+            loginCache = JSON.parse(cacheFile)[user]
+          } catch (err) {
+            this.parent.log.info('[i] Cache: file not found')
+            cacheFile={}
+            loginCache = false
+          }
         } catch (err) {
-          this.parent.log.error('[!] Could not parse loginCache: ' + err)
+          this.parent.log.info('[i] Cache: file not found')
+          cacheFile={}
+          loginCache = false
         }
-      } catch (err) {
-        this.parent.log.info('[i] Could not read loginCache: ' + err)
       }
 
-    }
 
-    var res
-    
-    if (loginCache &&
-        ((Date.now() - loginCache.timestamp) < 10 * MILLIS_PER_MINUTE)) {
-      this.parent.log.info('[i] Logging in with cache.')
-      res = loginCache.accessToken
-    } else {
-      this.parent.log.info('[i] Logging in with regular auth.')
-      res = await this.Auth.login(user, pass, this.playerInfo.provider)
-    }
-    let file = {}
-    try {
-      // Load login details from disk.
-      file = JSON.parse(loginCacheString);
-    } catch (err) {
-      // ok do nothing, rewrite file...
-    }
+      if (loginCache &&
+          ((Date.now() - loginCache.timestamp) < 10 * MILLIS_PER_MINUTE)) {
+        this.parent.log.info('[i] Logging in with cache.')
+        var res = loginCache.accessToken
+      } else {
+        this.parent.log.info('[i] Logging in with regular auth.')
+        var res = await this.Auth.login(user, pass, this.playerInfo.provider)
+      }
 
-    let cacheObj = {
+
+      //update to file
+      cacheFile[user] = {
         accessToken: res,
         timestamp: Date.now(),
-    }
-    // add / overwrite login details to file.
-    file[user] = cacheObj
+      }
 
-    let prettyJson = JSON.stringify(cacheObj, null, 2)
-    try {
-      fs.writeFileSync(LOGIN_CACHE_LOCATION, prettyJson)
-      this.parent.log.info('[i] Login cache saved to file!')
-    } catch (err) {
-      this.parent.log.error('[!] Error saving cache to file: ' + err)
+      let prettyJson = JSON.stringify(cacheObj, null, 2)
+      try {
+        fs.writeFileSync(LOGIN_CACHE_LOCATION, prettyJson)
+        this.parent.log.info('[i] Login cache saved to file!')
+      } catch (err) {
+        this.parent.log.error('[!] Error saving cache to file: ' + err)
+      }
+
+    }else{
+      this.parent.log.info('[i] Logging in with regular auth.')
+      var res = await this.Auth.login(user, pass, this.playerInfo.provider)
     }
 
     this.playerInfo.username = user
