@@ -2,7 +2,7 @@
   "name": "pokemongo-api",
   "description": "Pokemon Go API",
   "main": "dist/index.js",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "scripts": {
     "commit": "git-cz",
     "compile": "babel -r babel-register -d dist/ src/",
