@@ -121,7 +121,7 @@ class Player {
           try {
             loginCache = JSON.parse(cacheFile)[user]
           } catch (err) {
-            this.parent.log.info('[i] Cache: file not found')
+            this.parent.log.info('[i] Cache: could not parse JSON')
             cacheFile={}
             loginCache = false
           }
@@ -189,7 +189,7 @@ class Player {
 
 
   /**
-   * Walk towards a point in human manner 
+   * Walk towards a point in human manner
    * @param  {float} lat  latidude of the point to move against
    * @param  {float} long longitude of the point to move against
    * @return {bool} returns true when move complete
