@@ -1,23 +1,9 @@
 import Pokemon from '~/Pokemon'
-
+import Item from '~/Item'
 import _ from 'lodash'
 import Protobuf from 'protobufjs'
 import path from 'path'
 import POGOProtos from 'node-pogo-protos'
-
-class Item {
-  constructor(id){
-    this.count = 0
-    this.id = id
-
-    // Specifyes the max amount of this
-    // item that you want to keep
-    this.max = Infinity
-  }
-
-  recycle(count){}
-}
-
 
 class useOnEncounter extends Item {
   constructor(id){ super(id) }

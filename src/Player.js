@@ -119,7 +119,8 @@ class Player {
         try {
           cacheFile = require('fs').readFileSync(LOGIN_CACHE_LOCATION, 'utf8')
           try {
-            loginCache = JSON.parse(cacheFile)[user]
+            cacheFile = JSON.parse(cacheFile);
+            loginCache = cacheFile[user];
           } catch (err) {
             this.parent.log.info('[i] Cache: could not parse JSON')
             cacheFile={}
