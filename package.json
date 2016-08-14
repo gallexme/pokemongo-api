@@ -9,6 +9,7 @@
     "prepublish": "npm run compile",
     "example": "babel-node example/example.js",
     "test-es5": "node example-es5/test.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,8 @@
     "babel-project-relative-import": "^2.0.0",
     "babel-register": "^6.11.6",
     "commitizen": "^2.8.2",
-    "cz-conventional-changelog": "^1.1.6"
+    "cz-conventional-changelog": "^1.1.6",
+    "semantic-release": "^4.3.5"
   },
   "dependencies": {
     "geocoder": "^0.2.2",
@@ -53,6 +55,5 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
-  },
-  "version": "1.7.2"
+  }
 }
