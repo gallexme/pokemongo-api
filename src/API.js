@@ -185,7 +185,6 @@ class Connection {
     if(this.auth_ticket != null) {
       data.auth_ticket = this.auth_ticket
 
-      console.log(this.signatureBuilder)
       this.signatureBuilder.setAuthTicket(this.auth_ticket)
       this.signatureBuilder.setLocation(userObj.latitude, userObj.longitude, userObj.altitude)
       var res = this.signatureBuilder.encrypt(req, (err, sigEncrypted) =>{
