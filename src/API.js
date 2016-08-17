@@ -185,15 +185,16 @@ class Connection {
     if(this.auth_ticket != null) {
       data.auth_ticket = this.auth_ticket
 
+      console.log(this.signatureBuilder)
       this.signatureBuilder.setAuthTicket(this.auth_ticket)
       this.signatureBuilder.setLocation(userObj.latitude, userObj.longitude, userObj.altitude)
       var res = this.signatureBuilder.encrypt(req, (err, sigEncrypted) =>{
-        data.unknown6.push(new POGOProtos.Networking.Envelopes.Unknown6({
+        data.unknown6 = new POGOProtos.Networking.Envelopes.Unknown6({
             request_type: 6,
             unknown2: new POGOProtos.Networking.Envelopes.Unknown6.Unknown2({
                 encrypted_signature: sigEncrypted
             })
-        }))
+        })
       })
     } else {
       data.auth_info = new POGOProtos.Networking.Envelopes.RequestEnvelope.AuthInfo({
