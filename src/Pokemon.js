@@ -165,8 +165,7 @@ class Pokemon {
   /**
    * [setFavorite description]
    */
-  setFavorite(status) {
-    status = ((status !== true) && (status !== false)) ? true : status;
+  setFavorite(status = true) {
     return this.parent.Call([{
       request: 'SET_FAVORITE_POKEMON',
       message: {
