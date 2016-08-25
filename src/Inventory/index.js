@@ -85,10 +85,10 @@ var usePotion = item_id => pokemon => {
 class Items {
   constructor(){
     Object.assign(this, {
-      pokeBall: new useOnEncounter(1),
-      greatBall: new useOnEncounter(2),
-      ultraBall: new useOnEncounter(3),
-      masterBall: new useOnEncounter(4),
+      pokeBall: new Item(1),
+      greatBall: new Item(2),
+      ultraBall: new Item(3),
+      masterBall: new Item(4),
       potion: usePotion(101),
       superPotion: usePotion(102),
       hyperPotion: usePotion(103),
@@ -104,11 +104,11 @@ class Items {
       // xAttack: {id: 0}
       // xDefense: {id: 0}
       // xMiracle: {id: 0}
-      razzBerry: new useOnEncounter(701),
-      blukBerry: new useOnEncounter(702),
-      nanabBerry: new useOnEncounter(703),
-      weparBerry: new useOnEncounter(704),
-      pinapBerry: new useOnEncounter(705),
+      razzBerry: new Item(701),
+      blukBerry: new Item(702),
+      nanabBerry: new Item(703),
+      weparBerry: new Item(704),
+      pinapBerry: new Item(705),
       incubatorBasicUnlimited: new Item(901),
       incubatorBasic: new Item(902)
     })
