@@ -36,10 +36,12 @@
     "semantic-release": "^4.3.5"
   },
   "dependencies": {
+    "babel-runtime": "^6.11.6",
     "geocoder": "^0.2.2",
     "geolib": "^2.0.21",
     "gpsoauthnode": "0.0.5",
     "lodash": "^4.13.1",
+    "long": "^3.2.0",
     "moment": "^2.14.1",
     "node-env-file": "^0.1.8",
     "node-fetch": "^1.6.0",
