@@ -1,4 +1,5 @@
 import Player from '~/Player'
+import _ from 'lodash'
 import API from '~/API'
 import Inventory from '~/Inventory'
 import Pokemon from '~/Pokemon'
@@ -17,27 +18,22 @@ function mandatory() {
 
 class PokemonGOAPI {
 
-    constructor(props, socksProxy) {
-        this.player = new Player(this, socksProxy)
-        this.api = new API(this, socksProxy)
+    constructor(props) {
+        props = _.extend({
+            logging: true, // logging defaults to true
+            loginCache: true, // use login cache by default
+            requestInterval: PAUSE_BETWEEN_REQUESTS, // logging defaults to settings.js
+        }, props);
+        this.player = new Player(this, props.socksProxy)
+        this.api = new API(this, props.socksProxy)
         this.inventory = new Inventory(this)
         this.logged = false
         this.debug = true
         this.useHeartBeat = false
         this.lastObjectsCall = 0
-
-        this.logging = (props && props.logging) != null ?
-            props.logging :
-            true // logging defaults to true
-
-        this.loginCache = (props && props.loginCache) != null ?
-            props.loginCache :
-            true // use login cache
-
-        this.requestInterval = (props && props.requestInterval) != null ?
-            props.requestInterval :
-            PAUSE_BETWEEN_REQUESTS // logging defaults to settings.js
-
+        this.logging = props.logging
+        this.loginCache = props.loginCache
+        this.requestInterval = props.requestInterval
     }
 
     get log() {
