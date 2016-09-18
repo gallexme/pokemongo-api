@@ -2,6 +2,7 @@
 [![npm version](https://badge.fury.io/js/pokemongo-api.svg)](https://badge.fury.io/js/pokemongo-api)
 [![Join the chat at https://gitter.im/gallexme/pokemongo-api](https://badges.gitter.im/gallexme/pokemongo-api.svg)](https://gitter.im/gallexme/pokemongo-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![David](https://img.shields.io/david/gallexme/pokemongo-api.svg)]()
 
 Pokemon Go API for nodejs
 

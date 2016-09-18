@@ -29,7 +29,7 @@ class Player {
             debug: true,
             latitude: 0,
             longitude: 0,
-            altitude: 0,
+            accuracy: 23,
             provider: '',
             sessionData: {},
             lastCheckpointSearch: {},

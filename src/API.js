@@ -172,8 +172,8 @@ class Connection {
             request_id: this._getRequestID(),
             latitude: userObj.latitude,
             longitude: userObj.longitude,
-            altitude: userObj.altitude,
-            unknown12: 989,
+            accuracy: userObj.accuracy,
+            ms_since_last_locationfix: 989,
             requests: req
         })
 
@@ -182,7 +182,7 @@ class Connection {
             data.auth_ticket = this.auth_ticket
 
             this.signatureBuilder.setAuthTicket(this.auth_ticket)
-            this.signatureBuilder.setLocation(userObj.latitude, userObj.longitude, userObj.altitude)
+            this.signatureBuilder.setLocation(userObj.latitude, userObj.longitude, userObj.accuracy)
             var res = this.signatureBuilder.encrypt(req, (err, sigEncrypted) => {
                 data.unknown6 = new POGOProtos.Networking.Envelopes.Unknown6({
                     request_type: 6,
