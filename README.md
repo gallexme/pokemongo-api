@@ -64,6 +64,27 @@ while( true ) {
 
 ```
 
+## PokeAPI Options
+You can specify some options and pass them in PokeAPI constructor:
+
+```js
+const options
+const Poke = new PokeAPI(options)
+...
+```
+
+```js
+  {
+      logging: boolean, // default true
+      loginCache: boolean, // default true
+      requestInterval: number, // default PAUSE_BETWEEN_REQUESTS read in settings.js
+      socksProxy: { //default to undefined (no proxy)
+          hostname: string,
+          port: number
+      }
+  }
+```
+
 
 ## Player Object
 ```
