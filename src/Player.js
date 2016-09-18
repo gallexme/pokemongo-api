@@ -20,7 +20,7 @@ function getRandomDirection() {
 }
 
 class Player {
-    constructor(parent) {
+    constructor(parent, socksProxy) {
         this.parent = parent
         this.playerInfo = {
             accessToken: '',
@@ -34,7 +34,7 @@ class Player {
             sessionData: {},
             lastCheckpointSearch: {},
         }
-        this.Auth = new Auth(parent)
+        this.Auth = new Auth(parent, socksProxy)
     }
 
     set provider(provider) {

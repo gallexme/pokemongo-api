@@ -1,6 +1,7 @@
 import { API_URL } from './settings'
 import _ from 'lodash'
 import fetch from 'node-fetch'
+import { default as SocksAgent } from 'socks5-https-client/lib/Agent';
 import Protobuf from 'protobufjs'
 import path from 'path'
 import Long from 'long'
@@ -9,13 +10,14 @@ import PoGoSignature from 'node-pogo-signature'
 import POGOProtos from 'node-pogo-protos'
 
 class Connection {
-    constructor(parent) {
+    constructor(parent, socksProxy) {
         this.parent = parent
         this.endPoint = API_URL
         this.auth_ticket = null
         this.numConsecutiveEndpointFailures = 0;
 
         this.signatureBuilder = new PoGoSignature.Builder()
+        this.socksProxy = socksProxy;
     }
 
     async Request(requests, userObj) {
@@ -54,21 +56,20 @@ class Connection {
         var protobuf = request.encode().toBuffer();
 
         var options = {
-            url: this.endPoint,
-            body: protobuf,
-            encoding: null,
-            headers: {
-                'User-Agent': 'Niantic App'
-            }
-        }
-
-        let res = await fetch(this.endPoint, {
             body: protobuf,
             method: 'POST',
             headers: {
                 'User-Agent': 'Niantic App'
             }
-        })
+        }
+
+        if (this.socksProxy)
+            options.agent = new SocksAgent({
+                socksHost: this.socksProxy.hostname,
+                socksPort: this.socksProxy.port
+            })
+
+        let res = await fetch(this.endPoint, options)
 
         let body = await res.buffer()
 

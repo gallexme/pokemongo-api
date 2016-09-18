@@ -17,9 +17,9 @@ function mandatory() {
 
 class PokemonGOAPI {
 
-    constructor(props) {
-        this.player = new Player(this)
-        this.api = new API(this)
+    constructor(props, socksProxy) {
+        this.player = new Player(this, socksProxy)
+        this.api = new API(this, socksProxy)
         this.inventory = new Inventory(this)
         this.logged = false
         this.debug = true

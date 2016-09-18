@@ -50,7 +50,8 @@
     "protobufjs": "^5.0.1",
     "randgen": "^0.1.0",
     "request": "^2.74.0",
-    "s2-geometry": "^1.2.6"
+    "s2-geometry": "^1.2.6",
+    "socks5-https-client": "^1.1.3"
   },
   "config": {
     "commitizen": {

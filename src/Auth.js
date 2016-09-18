@@ -1,5 +1,6 @@
 import GoogleOAuth from 'gpsoauthnode'
 import Request from 'request'
+import { default as SocksAgent } from 'socks5-https-client/lib/Agent';
 
 import {
     ANDROID_ID,
@@ -14,7 +15,7 @@ import {
 } from './settings'
 
 class Auth {
-    constructor(parent) {
+    constructor(parent, socksProxy) {
         this.parent = parent
         this.google = new GoogleOAuth();
         this.options = {
@@ -26,6 +27,7 @@ class Auth {
         this.cookieJar = Request.jar()
         this.request = Request.defaults({ jar: this.cookieJar })
         this.accessToken = ''
+        this.socksProxy = socksProxy;
     }
 
     async login(user, pass, provider) {
@@ -71,6 +73,7 @@ class Auth {
 
                 var options = {
                     url: LOGIN_URL,
+                    strictSSL: true,
                     form: {
                         lt: data.lt,
                         execution: data.execution,
@@ -79,6 +82,14 @@ class Auth {
                         password: pass
                     },
                     headers: loginOptions.headers
+                }
+
+                if (this.socksProxy) {
+                    options.agentClass = SocksAgent;
+                    options.agentOptions = {
+                        socksHost: this.socksProxy.hostname,
+                        socksPort: this.socksProxy.port
+                    }
                 }
 
                 this.request.post(options, (err, response, body) => {
