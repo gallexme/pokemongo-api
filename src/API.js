@@ -172,8 +172,8 @@ class Connection {
             request_id: this._getRequestID(),
             latitude: userObj.latitude,
             longitude: userObj.longitude,
-            altitude: userObj.altitude,
-            unknown12: 989,
+            accuracy: 0,
+            ms_since_last_locationfix: 989,
             requests: req
         })
 
@@ -184,12 +184,12 @@ class Connection {
             this.signatureBuilder.setAuthTicket(this.auth_ticket)
             this.signatureBuilder.setLocation(userObj.latitude, userObj.longitude, userObj.altitude)
             var res = this.signatureBuilder.encrypt(req, (err, sigEncrypted) => {
-                data.unknown6 = new POGOProtos.Networking.Envelopes.Unknown6({
-                    request_type: 6,
-                    unknown2: new POGOProtos.Networking.Envelopes.Unknown6.Unknown2({
+                data.platform_requests.push(new POGOProtos.Networking.Envelopes.RequestEnvelope.PlatformRequest({
+                    type: POGOProtos.Networking.Platform.PlatformRequestType.SEND_ENCRYPTED_SIGNATURE,
+                    request_message: new POGOProtos.Networking.Platform.Requests.SendEncryptedSignatureRequest({
                         encrypted_signature: sigEncrypted
-                    })
-                })
+                    }).encode()
+                }));
             })
         } else {
             data.auth_info = new POGOProtos.Networking.Envelopes.RequestEnvelope.AuthInfo({
