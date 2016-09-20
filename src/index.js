@@ -45,7 +45,6 @@ class PokemonGOAPI {
         }
     }
 
-
     /**
      * [login description]
      *
