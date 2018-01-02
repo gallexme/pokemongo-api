@@ -66,10 +66,21 @@ class Auth {
                     'User-Agent': 'niantic'
                 }
             }
+            if (this.socksProxy) {
+                loginOptions.agentClass = SocksAgent;
+                loginOptions.agentOptions = {
+                    socksHost: this.socksProxy.hostname,
+                    socksPort: this.socksProxy.port
+                }
+            }
             this.request.get(loginOptions, (err, res, body) => {
                 if (err) return reject(err)
-
-                const data = JSON.parse(body)
+                let data
+                try {
+                    data = JSON.parse(body)
+                } catch (err) {
+                    return reject(err)
+                }
 
                 var options = {
                     url: LOGIN_URL,
@@ -96,13 +107,18 @@ class Auth {
                     if (err) return reject(err)
 
                     if (body) {
-                        const loginData = JSON.parse(body);
-                        if (loginData.errors && loginData.errors.length !== 0) {
-                            return reject(new Error('Error logging in: ' + loginData.errors[0]), null);
+                        try {
+                            const loginData = JSON.parse(body);
+                            if (loginData.errors && loginData.errors.length !== 0)
+                                return reject(new Error('Error logging in: ' + loginData.errors[0]), null);
+                        } catch (err) {
+                            return reject(err)
                         }
                     }
 
                     const ticket = response.headers.location.split('ticket=')[1]
+                    if (!ticket)
+                        return reject(new Error('Login failed'))
                     options = {
                         url: LOGIN_OAUTH,
                         form: {
@@ -117,8 +133,9 @@ class Auth {
 
                     this.request.post(options, (err, response, body) => {
                         if (err) return reject(err)
-
                         var token = body.split('token=')[1]
+                        if (!token)
+                            return reject(new Error('Login failed'))
                         token = token.split('&')[0]
 
                         if (!token)
