@@ -3,6 +3,8 @@
 [![Join the chat at https://gitter.im/gallexme/pokemongo-api](https://badges.gitter.im/gallexme/pokemongo-api.svg)](https://gitter.im/gallexme/pokemongo-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+No more developed, and not working as of last updates
+
 Pokemon Go API for nodejs
 
 Query the Pokemon database for what you want..
